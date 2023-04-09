@@ -6,11 +6,13 @@ const server = http.createServer();
 const io = socketIO(server,{cors:{origin:'*'}});
 
 io.on('connection', (socket) => {
-  console.log('A client connected!');
+  console.log(`A client connected! with id : ${socket.id}`);
+
 
   socket.on('message', (data) => {
     // console.log(`Received message: ${data}`);
     socket.broadcast.emit('message', data);
+    // socket.broadcast.to(socket.id).emit('message', data)
     // socket.broadcast.emit('message', { sender: socket.id, message: data });
   });
 
